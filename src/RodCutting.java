@@ -3,9 +3,14 @@
  */
 public class RodCutting {
 
-    int[] price;
+    static int[] price;
+    public static void main(String[] args) {
+        int[] price = {2,5,7,8};
+        System.out.println(maxValue(price, 5));
 
-    public int maxValue(int[] price, int length){
+    }
+
+    private static int maxValue(int[] price, int length){
         int[][] m = new int[price.length][length+1];
         for(int k =0; k<price.length; k++){
             m[k][0] = 0;
