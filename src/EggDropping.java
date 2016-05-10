@@ -5,10 +5,10 @@ public class EggDropping {
 
     public static void main(String[] args) {
         //having 2 eggs, and checking it out with 100 floors
-        System.out.println(countAttemp(2, 100));
+        System.out.println(countAttempt(2, 100));
     }
 
-    private static int countAttemp(int eggs, int floors){
+    private static int countAttempt(int eggs, int floors){
         int[][] t = new int[eggs+1][floors+1];
         int count =0;
         for(int i=0; i<= floors; i++){
