@@ -1,38 +1,40 @@
 /**
- * Created by Sanjeev on 5/10/2016.
+ * Created by Sanjeev on 12/9/2016.
  */
 public class RodCutting {
+    //given an array of rod length values and index+1 as length.
+    //find best way to cut the rod as maximize the value, and return the maximum value.
+    //n is length.
+    public static int rodCuttingRec(int[] price, int n){
+        if(n<=0) return 0;
+         int max = Integer.MIN_VALUE;
 
-    static int[] price;
-    public static void main(String[] args) {
-        int[] price = {2,5,7,8};
-        System.out.println(maxValue(price, 5));
+        //recursively cut the rod at different length(i), and calculate the maximum value
+        for(int i=0; i<n ; i++){
+            max = Math.max(max, price[i]+rodCuttingRec(price, n-1-i));
+        }
 
+        return max;
     }
 
-    private static int maxValue(int[] price, int length){
-        int[][] m = new int[price.length][length+1];
-        for(int k =0; k<price.length; k++){
-            m[k][0] = 0;
-        }
-        for(int k =0 ; k< length+1; k++){
-            m[0][k] = k*2;
-        }
-        for(int i = 1; i< price.length; i++){
-            for(int j = 1 ; j<length+1; j++){
-                if(j>=i){
-                    m[i][j] = Math.max(m[i-1][j], m[i][j-i]+ price[i-1]);
-                    System.out.print(" "+ m[i][j]);
-                }else{
-                    m[i][j]= m[i-1][j];
-                    System.out.print(" "+ m[i][j]);
-                }
 
+    public static int rodCuttingDyn(int[] price, int n){
+        //make an array of length n+1
+        int[] val = new int[n+1];
+        int max_val = Integer.MIN_VALUE;
+        for(int i =1; i<=n; i++){
+            for(int j =0; j<i; j++){
+                max_val= Math.max(max_val, price[j]+val[i-j-1]);
 
+                val[i]= max_val;
             }
-            System.out.println("");
-
         }
-        return m[price.length-1][length];
+        return val[n];
+    }
+
+    public static void main(String[] args){
+        int[] price = {1, 5, 8, 9, 10, 17, 17, 20};
+        int n = price.length;
+        System.out.println(rodCuttingDyn(price, n));
     }
 }
